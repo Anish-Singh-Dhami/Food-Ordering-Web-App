@@ -5,11 +5,13 @@ import mongoose from "mongoose";
 
 
 const app = express();
-const PORT = 8000;
+const port: string = process.env.PORT!;
+const connectionString : string = process.env.MONGODB_CONNECTION_STRING!;
 
 const connectToDB = async() => { 
+    console.log("Connnection String : ", connectionString);
     try {
-        await mongoose.connect(process.env.MONGODB_CONNECTION_STRING!);
+        await mongoose.connect(connectionString);
         console.log("Connected to DB successfully.")
     } catch (error) {
         console.error("Failed to connect to the DB ", error);
@@ -27,6 +29,6 @@ app.get("/", async (req: Request, res: Response) => {
     });
 })
 
-app.listen(PORT, () => {
+app.listen(port, () => {
     console.log(`Server started and listening  at http://localhost:8000`);
 })
