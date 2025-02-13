@@ -1,10 +1,15 @@
+import { Layout } from "@/layouts";
 import { HomePage } from "@/pages";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <Layout>
+        <HomePage />
+      </Layout>
+    ),
   },
   {
     path: "*",
@@ -12,4 +17,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export {router};
+export { router };
