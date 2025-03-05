@@ -30,5 +30,5 @@ app.get("/", async (req: Request, res: Response) => {
 })
 
 app.listen(port, () => {
-    console.log(`Server started and listening  at http://localhost:8000`);
+    console.log(`Server started and listening  at http://localhost:${port}`);
 })
