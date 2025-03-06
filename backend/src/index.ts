@@ -9,7 +9,6 @@ const port: string = process.env.PORT!;
 const connectionString : string = process.env.MONGODB_CONNECTION_STRING!;
 
 const connectToDB = async() => { 
-    console.log("Connnection String : ", connectionString);
     try {
         await mongoose.connect(connectionString);
         console.log("Connected to DB successfully.")
