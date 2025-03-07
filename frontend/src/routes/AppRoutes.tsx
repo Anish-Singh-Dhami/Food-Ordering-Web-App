@@ -1,20 +1,23 @@
 import { Layout } from "@/layouts";
 import { HomePage } from "@/pages";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { AuthCallbackPage } from "@/pages/AuthCallbackPage";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <Layout>
-        <HomePage />
-      </Layout>
-    ),
-  },
-  {
-    path: "*",
-    element: <Navigate to="/" />,
-  },
-]);
+const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Layout>
+            <HomePage />  
+          </Layout>
+        }
+      />
+      <Route path="/auth-callback" element={<AuthCallbackPage />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+};
 
-export { router };
+export { AppRoutes };
