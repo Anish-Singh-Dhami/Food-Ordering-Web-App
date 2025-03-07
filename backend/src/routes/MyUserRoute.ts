@@ -1,8 +1,13 @@
 import express from "express";
 import MyUserController from "../controllers/MyUserController";
+import { jwtCheck } from "../middleware/auth";
 
 const router = express.Router();
 
-router.post("/", MyUserController.createCurrentUser as express.RequestHandler);
+router.post(
+  "/",
+  jwtCheck,
+  MyUserController.createCurrentUser as express.RequestHandler
+);
 
-export default {router};
+export default { router };
