@@ -1,13 +1,18 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { User } from "../models/user";
 
+/**
+ * Create a new entry in our DB for current authorised user if it's information is not present in our DB.
+ * @param req Request object
+ * @param res Response object
+ */
 const createCurrentUser = async (req: Request, res: Response) => {
   try {
     const { auth0Id } = req.body;
     const existingUser = await User.findOne({ auth0Id });
     // Checking user already exist in our DB.
     if (existingUser) {
-      return res.status(200).send();
+      return res.sendStatus(200);
     }
     // Creating a new User object.
     const newUser = new User(req.body);
@@ -21,4 +26,35 @@ const createCurrentUser = async (req: Request, res: Response) => {
   }
 };
 
-export default { createCurrentUser };
+/**
+ * Update the current user's information stored in our DB.
+ * @param req Request object
+ * @param res Response object
+ */
+const updateCurrentUser = async (req: Request, res: Response) => {
+  try {
+    const { name, addressLine1, city, country } = req.body;
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      res.status(404).json({ message: "User Not Found." });
+      return;
+    }
+
+    // being specific about the perimeters we're allowing to update.
+    user.name = name;
+    user.addressLine1 = addressLine1;
+    user.city = city;
+    user.country = country;
+
+    await user.save();
+
+    // sends the updated value of current user.
+    res.send(user);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(500).json({ message: "Error in updating user." });
+  }
+};
+
+export default { createCurrentUser, updateCurrentUser };
