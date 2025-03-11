@@ -57,4 +57,22 @@ const updateCurrentUser = async (req: Request, res: Response) => {
   }
 };
 
-export default { createCurrentUser, updateCurrentUser };
+/**
+ * Fetches the current user entry from our db and send it to the client side.
+ * @param req Request bject
+ * @param res Response object
+ */
+const getCurrentUser = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      res.status(404).json({ message: "User not found!" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+export default { createCurrentUser, updateCurrentUser, getCurrentUser };

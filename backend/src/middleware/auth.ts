@@ -25,8 +25,8 @@ declare global {
 }
 
 /**
- * Middle-Ware to add userId (created by our db while creating a new user) and
- * auth0Id of the current authenticated user (having authentication token) to our request object.
+ * Middle-Ware to add `userId` (created by our db while creating a new user) and
+ * `auth0Id` of the current authenticated user (having authentication token) to our request object.
  * @param req Request Body
  * @param res Response Body
  * @param next Next function to execute the middleware succeeding the current middleware.

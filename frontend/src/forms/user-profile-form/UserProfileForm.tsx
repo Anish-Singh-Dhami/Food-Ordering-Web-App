@@ -12,6 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components";
 import { Button } from "@/components/ui/button";
+import { User } from "@/types";
+import { useEffect } from "react";
 
 /**
  * Defining form schema using zod for validating form data.
@@ -26,15 +28,25 @@ const formSchema = z.object({
 
 type UserFormData = z.infer<typeof formSchema>;
 
-type UserProfileFormType = {
+type UserProfileFormProp = {
   onSave: (userProfileData: UserFormData) => void;
   isLoading: boolean;
+  currentUser: User;
 };
 
-const UserProfileForm = ({ onSave, isLoading }: UserProfileFormType) => {
+const UserProfileForm = ({
+  onSave,
+  isLoading,
+  currentUser,
+}: UserProfileFormProp) => {
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: currentUser
   });
+
+  useEffect(()=>{
+    form.reset(currentUser);
+  }, [currentUser]);
 
   return (
     <Form {...form}>

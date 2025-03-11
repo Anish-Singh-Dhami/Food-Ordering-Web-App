@@ -19,6 +19,8 @@ router.post(
 /**
  * PUT method on the route '/' to update the entry of the current authenticated user.
  * Protecting route with jwtCheck middleware.
+ * Parsing the auth token and add {`userId`, `auth0Id`} to our request object.
+ * Validating the request with express-validator.
  */
 router.put(
   "/",
@@ -26,5 +28,17 @@ router.put(
   jwtParse as express.RequestHandler,
   validateMyUserRequest,
   MyUserController.updateCurrentUser
+);
+
+/**
+ * GET method on the route '/' to fetch the current users detail from our DB, and send it to the client.
+ * Protecting route with jwtCheck middleware.
+ * Parsing the auth token and adding {`userId`, `auth0Id`} to our request object.
+ */
+router.get(
+  "/",
+  jwtCheck,
+  jwtParse as express.RequestHandler,
+  MyUserController.getCurrentUser
 );
 export default { router };
