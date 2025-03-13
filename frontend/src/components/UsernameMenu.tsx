@@ -1,7 +1,6 @@
 import {
   DropdownMenu,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu";
