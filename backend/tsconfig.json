@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    // Holds all the transpiled code for production / distribution.
+    "outDir": "./dist",
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
