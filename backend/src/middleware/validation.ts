@@ -8,6 +8,7 @@ const handleValidationErrors = async (
 ) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log("Error in validation : ", errors);
     res.status(400).json({ errors: errors.array() });
   }
   next();
@@ -24,4 +25,28 @@ const validateMyUserRequest = [
   handleValidationErrors,
 ];
 
-export { validateMyUserRequest };
+const validateMyRestaurantRequst = [
+  body("restaurantName").notEmpty().withMessage("Restaurant name is required"),
+  body("city").notEmpty().withMessage("City is Required"),
+  body("country").notEmpty().withMessage("Country is Required"),
+  body("deliveryPrice")
+    .isFloat({ min: 0 })
+    .withMessage("Delivery price must be a positive number"),
+  body("estimatedDeliveryTime")
+    .isInt({ min: 0 })
+    .withMessage("Estimated delivery time must be a positive number"),
+  body("cuisines")
+    .isArray()
+    .withMessage("Cuisines must be an array")
+    .notEmpty()
+    .withMessage("Cuisines array cannot be empty"),
+  body("menuItems").isArray().withMessage("Menu items must be an array"),
+  body("menuItems.*.name")
+    .notEmpty()
+    .withMessage("Menu items name is required"),
+  body("menuItems.*.price")
+    .isFloat({ min: 0 })
+    .withMessage("Menu items price is required and must be a positive number"),
+  handleValidationErrors,
+];
+export { validateMyUserRequest, validateMyRestaurantRequst };

@@ -1,6 +1,6 @@
 import { ProtectedRoute } from "@/auth/ProtectedRoute";
 import { Layout } from "@/layouts";
-import { HomePage, UserProfilePage } from "@/pages";
+import { HomePage, ManageRestaurantPage, UserProfilePage } from "@/pages";
 import { AuthCallbackPage } from "@/pages/AuthCallbackPage";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -22,6 +22,15 @@ const AppRoutes = () => {
           element={
             <Layout>
               <UserProfilePage />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/manage-restaurant"
+          element={
+            <Layout>
+              <ManageRestaurantPage />
             </Layout>
           }
         />
