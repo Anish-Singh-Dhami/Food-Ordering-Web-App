@@ -37,4 +37,16 @@ router.post(
   MyRestaurantController.createMyRestaurant as express.RequestHandler
 );
 
+/**
+ * PUT Method to update the users restaurant's info
+ */
+router.put(
+  "/",
+  upload.single("imageFile"),
+  validateMyRestaurantRequst,
+  jwtCheck,
+  jwtParse as express.RequestHandler,
+  MyRestaurantController.updateMyRestaurant as express.RequestHandler
+);
+
 export default { router };
