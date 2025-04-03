@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
 const MobileNavLinks = () => {
+  const redirect_uri = import.meta.env.VITE_AUTH0_CALLBACK_URI;
   const { logout } = useAuth0();
   return (
     <>
@@ -20,7 +21,7 @@ const MobileNavLinks = () => {
       </Link>
       <Button
         className="flex items-center px-3 font-bold hover:bg-gray-500"
-        onClick={() => logout()}
+        onClick={() => logout({logoutParams: {returnTo: redirect_uri}})}
       >
         Log Out
       </Button>

@@ -11,6 +11,7 @@ import { Separator } from "@radix-ui/react-separator";
 import { Button } from "./ui/button";
 
 const UsernameMenu = () => {
+  const redirect_uri = import.meta.env.VITE_AUTH0_CALLBACK_URI;
   const { user, logout } = useAuth0();
   return (
     <DropdownMenu>
@@ -37,7 +38,7 @@ const UsernameMenu = () => {
         <DropdownMenuItem>
           <Button
             className="flex flex-1 font-bold hover:bg-orange-500"
-            onClick={() => logout()}
+            onClick={() => logout({ logoutParams: { returnTo: redirect_uri } })}
           >
             Log Out
           </Button>
