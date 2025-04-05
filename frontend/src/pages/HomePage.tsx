@@ -1,14 +1,28 @@
 import landingImg from "../assets/landing.png";
 import appsDownload from "../assets/appDownload.png";
+import { SearchBar, SearchForm } from "@/components";
+import { useNavigate } from "react-router-dom";
 
-function HomePage() {
+const HomePage = () => {
+  const navigate = useNavigate();
+  const handleSearchSubmit = (searchFrom: SearchForm) => {
+    console.log("Handle Search Submit is called", searchFrom);
+    navigate({
+      pathname: `/search/${searchFrom.searchQuery}`,
+    });
+  };
+
   return (
     <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-5 bg-white py-8 rounded-lg -mt-16 shadow-lg items-center">
+      <div className="md:px-32 flex flex-col gap-5 bg-white py-8 rounded-lg -mt-16 shadow-lg text-center ">
         <h1 className="text-4xl font-bold text-orange-500 tracking-tighter">
           Tuck into a takeaway today
         </h1>
         <span className="text-xl">Food is just a click away!</span>
+        <SearchBar
+          placeHolder="Search by City or Town"
+          onSubmit={handleSearchSubmit}
+        />
       </div>
       <div className="grid md:grid-cols-2 gap-4">
         <img src={landingImg} />
@@ -25,6 +39,6 @@ function HomePage() {
       </div>
     </div>
   );
-}
+};
 
 export { HomePage };

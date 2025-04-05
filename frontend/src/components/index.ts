@@ -6,3 +6,5 @@ export { Hero } from "./Hero";
 export { MobileNavLinks } from "./MobileNavLinks";
 export { UsernameMenu } from "./UsernameMenu";
 export { LoadingButton } from "./LoadingButton";
+export { SearchBar } from "./SearchBar";
+export type { SearchForm } from "./SearchBar";

@@ -14,7 +14,7 @@ type MenuItem = {
   _id: string;
   name: string;
   price: number;
-}
+};
 
 export type Restaurant = {
   _id: string;
@@ -28,4 +28,13 @@ export type Restaurant = {
   menuItems: MenuItem[];
   imageUrl: string;
   lastUpdated: string;
+};
+
+export type RestaurantSearchResult = {
+  data: Restaurant[];
+  pagination: {
+    countMatchedRestaurant: number;
+    currentPage: number;
+    totalPages: number;
+  };
 };
