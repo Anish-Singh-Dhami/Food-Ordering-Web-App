@@ -8,3 +8,5 @@ export { UsernameMenu } from "./UsernameMenu";
 export { LoadingButton } from "./LoadingButton";
 export { SearchBar } from "./SearchBar";
 export type { SearchForm } from "./SearchBar";
+export { SearchResultInfo } from "./SearchResultInfo";
+export { SearchResultCard } from "./SearchResultCard";

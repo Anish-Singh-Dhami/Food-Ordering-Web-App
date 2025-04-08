@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const navigate = useNavigate();
   const handleSearchSubmit = (searchFrom: SearchForm) => {
-    console.log("Handle Search Submit is called", searchFrom);
     navigate({
       pathname: `/search/${searchFrom.searchQuery}`,
     });
@@ -20,6 +19,7 @@ const HomePage = () => {
         </h1>
         <span className="text-xl">Food is just a click away!</span>
         <SearchBar
+          searchQuery=""
           placeHolder="Search by City or Town"
           onSubmit={handleSearchSubmit}
         />

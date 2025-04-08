@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import MyUserRoute from "./routes/MyUserRoute";
 import cloudinary from "cloudinary";
 import MyRestaurantRoute from "./routes/MyRestaurantRoute";
+import RestaurantRoutes from "./routes/RestaurantRoutes";
 
 const app = express();
 const port: string = process.env.PORT!;
@@ -32,7 +33,7 @@ const configCloudinary = () => {
   } catch (error) {
     console.log("Failed while configuring cloudinary, Error : ", error);
   }
-}
+};
 
 configCloudinary();
 
@@ -48,7 +49,7 @@ app.use("/api/my/user", MyUserRoute.router);
 
 /**
  * Forward requests starting with /api/my/restaurant to MyRestaurantRotes.
- * Handle request related to restaurant.
+ * Handle request related to current user's registered restaurant.
  */
 app.use("/api/my/restaurant", MyRestaurantRoute.router);
 
@@ -60,6 +61,12 @@ app.get("/health", async (req: Request, res: Response) => {
     message: "Health is ok!",
   });
 });
+
+/**
+ * Forward requests starting with /api/restaurant to RestaurantRoutes.
+ * Handle request related to restaurant(eg: search).
+ */
+app.use("/api/restaurant", RestaurantRoutes.router);
 
 app.listen(port, () => {
   console.log(`Server started and listening  at http://localhost:${port}`);
