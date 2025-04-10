@@ -20,7 +20,6 @@ const SearchResultInfo = ({
           Change Location
         </Link>
       </span>
-      Insert DropDown for sorting here...
     </div>
   );
 };

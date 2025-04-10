@@ -6,7 +6,7 @@ const searchRestaurants = async (req: Request, res: Response) => {
     const city = req.params.city;
     const searchQuery = (req.query.searchQuery as string) || "";
     const selectedCuisines = (req.query.selectedCuisines as string) || "";
-    const sortOptions = (req.query.sortOptions as string) || "lastUpdated";
+    const sortOption = (req.query.sortOption as string) || "lastUpdated";
     const page = parseInt(req.query.page as string) || 1;
 
     const query: any = {};
@@ -42,7 +42,7 @@ const searchRestaurants = async (req: Request, res: Response) => {
     const pageSize = 10;
     const skipRecords = (page - 1) * pageSize;
     const restaurants = await Restaurant.find(query)
-      .sort({ [sortOptions]: 1 })
+      .sort({ [sortOption]: 1 })
       .skip(skipRecords)
       .limit(pageSize)
       .lean();
