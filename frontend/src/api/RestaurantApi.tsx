@@ -8,6 +8,7 @@ const useSearchRestaurants = (searchState: SearchState, city?: string) => {
   const queryParams = new URLSearchParams();
   queryParams.set("searchQuery", searchState.searchQuery);
   queryParams.set("page", searchState.page.toString());
+  queryParams.set("selectedCuisines", searchState.selectedCuisines.join(","));
 
   const searchRequest = async (): Promise<RestaurantSearchResult> => {
     const response = await fetch(

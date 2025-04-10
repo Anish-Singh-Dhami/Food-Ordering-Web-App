@@ -1,5 +1,6 @@
 import { useSearchRestaurants } from "@/api/RestaurantApi";
 import {
+  CuisineFilter,
   PaginationSelector,
   SearchBar,
   SearchForm,
@@ -12,6 +13,7 @@ import { useParams } from "react-router-dom";
 export type SearchState = {
   searchQuery: string;
   page: number;
+  selectedCuisines: string[];
 };
 
 const SearchPage = () => {
@@ -19,7 +21,11 @@ const SearchPage = () => {
   const [searchState, setSearchState] = useState<SearchState>({
     searchQuery: "",
     page: 1,
+    selectedCuisines: [],
   });
+
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
   const { restaurantsResult, isLoading } = useSearchRestaurants(
     searchState,
     city
@@ -56,9 +62,23 @@ const SearchPage = () => {
     }));
   };
 
+  const setCuisines = (cuisines: string[]) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      selectedCuisines: cuisines,
+      page: 1,
+    }));
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      <div id="cuisines-list">insert cuisines list here...</div>
+      <CuisineFilter
+        onChange={setCuisines}
+        selectedCuisines={searchState.selectedCuisines}
+        isExpanded={isExpanded}
+        toggleIsExpanded={() => setIsExpanded((prev) => !prev)}
+      />
+
       <div id="main-content" className="flex flex-col gap-5">
         <SearchBar
           searchQuery={searchState.searchQuery}

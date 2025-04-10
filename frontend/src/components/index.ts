@@ -11,3 +11,4 @@ export type { SearchForm } from "./SearchBar";
 export { SearchResultInfo } from "./SearchResultInfo";
 export { SearchResultCard } from "./SearchResultCard";
 export { PaginationSelector } from "./PaginationSelector";
+export { CuisineFilter } from "./CuisineFilter";
