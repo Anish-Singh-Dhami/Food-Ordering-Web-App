@@ -5,6 +5,16 @@ import RestaurantControllers from "../controllers/RestaurantControllers";
 const router = Router();
 
 router.get(
+  "/:restaurantId",
+  param("restaurantId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("Restaurant ID must be a valid string"),
+  RestaurantControllers.getRestaurantById as RequestHandler
+);
+
+router.get(
   "/search/:city",
   param("city")
     .isString()

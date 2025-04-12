@@ -4,7 +4,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
 
 const SORT_OPTIONS = [
   {
@@ -35,21 +34,17 @@ const SortOptionDropDown = ({
     SORT_OPTIONS[0].label;
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button variant={"outline"} className="w-full">
-          Sort By: {selectedSortOption}
-        </Button>
+      <DropdownMenuTrigger className="border-2 rounded-lg py-1 px-2 font-semibold tracking-tight">
+        Sort By: {selectedSortOption}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        {SORT_OPTIONS.map((option) => (
-          <DropdownMenuItem>
-            <Button
-              variant={"ghost"}
-              className="w-full justify-start"
-              onClick={() => onChange(option.value)}
-            >
-              {option.label}
-            </Button>
+        {SORT_OPTIONS.map((option, index) => (
+          <DropdownMenuItem
+            key={index}
+            className="w-full gap-2"
+            onClick={() => onChange(option.value)}
+          >
+            {option.label}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -7,6 +7,7 @@ import {
   UserProfilePage,
 } from "@/pages";
 import { AuthCallbackPage } from "@/pages/AuthCallbackPage";
+import { DetailPage } from "@/pages/DetailPage";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 const AppRoutes = () => {
@@ -21,11 +22,19 @@ const AppRoutes = () => {
         }
       />
       <Route path="/auth-callback" element={<AuthCallbackPage />} />
-      <Route
+      <Route  
         path="/search/:city"
         element={
           <Layout>
             <SearchPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/detail/:restaurantId"
+        element={
+          <Layout>
+            <DetailPage />
           </Layout>
         }
       />

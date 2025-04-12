@@ -19,7 +19,6 @@ const HomePage = () => {
         </h1>
         <span className="text-xl">Food is just a click away!</span>
         <SearchBar
-          searchQuery=""
           placeHolder="Search by City or Town"
           onSubmit={handleSearchSubmit}
         />
