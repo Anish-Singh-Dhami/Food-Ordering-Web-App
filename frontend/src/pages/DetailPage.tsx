@@ -1,12 +1,54 @@
 import { useGetRestaurantById } from "@/api/RestaurantApi";
-import { RestaurantInfo } from "@/components";
-import { MenuItem } from "@/components/MenuItemCard";
+import { MenuItemCard, RestaurantInfo, OrderSummary } from "@/components";
+import { Card } from "@/components/ui/card";
+import { MenuItem } from "@/types";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+
+export type CartItemType = {
+  _id: string;
+  name: string;
+  price: number;
+  quantity: number;
+};
 
 const DetailPage = () => {
   const { restaurantId } = useParams();
   const { restaurant, isLoading } = useGetRestaurantById(restaurantId);
+
+  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+
+  const addToCart = (menuItem: MenuItem) => {
+    setCartItems((prevCartItems) => {
+      const existingCartItem = prevCartItems.find(
+        (cartItem) => cartItem._id === menuItem._id
+      );
+      if (existingCartItem) {
+        return prevCartItems.map((cartItem) => {
+          return cartItem._id === menuItem._id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem;
+        });
+      } else {
+        return [
+          ...prevCartItems,
+          {
+            ...menuItem,
+            quantity: 1,
+          },
+        ];
+      }
+    });
+  };
+
+  const removeFromCart = (cartItem: CartItemType) => {
+    setCartItems((prevCartItems) => {
+      return prevCartItems.filter((item) => {
+        return item._id !== cartItem._id;
+      });
+    });
+  };
 
   if (isLoading || !restaurant) {
     return <div>Loading...</div>;
@@ -25,16 +67,23 @@ const DetailPage = () => {
           <h2 className="text-2xl font-bold tracking-tight">Menu</h2>
           <div className="flex flex-col gap-4">
             {restaurant.menuItems.map((menuItem, id) => (
-              <MenuItem menuItem={menuItem} key={id} />
+              <MenuItemCard
+                menuItem={menuItem}
+                key={id}
+                addToCart={() => addToCart(menuItem)}
+              />
             ))}
           </div>
         </div>
 
-        <div
-          id="Order-Details-Card"
-          className="flex flex-col gap-4 border-2 rounded-md p-4 shadow-md h-fit"
-        >
-          <h2 className="text-xl font-bold tracking-tight">Your Orders</h2>
+        <div id="Order-Details-Card">
+          <Card>
+            <OrderSummary
+              restaurant={restaurant}
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+            />
+          </Card>
         </div>
       </div>
     </div>

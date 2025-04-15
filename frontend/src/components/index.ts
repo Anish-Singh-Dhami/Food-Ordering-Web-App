@@ -14,3 +14,5 @@ export { PaginationSelector } from "./PaginationSelector";
 export { CuisineFilter } from "./CuisineFilter";
 export { SortOptionDropDown } from "./SortOptionDropDown";
 export { RestaurantInfo } from "./RestaurantInfo";
+export { MenuItemCard } from "./MenuItemCard";
+export { OrderSummary } from "./OrderSummary";
